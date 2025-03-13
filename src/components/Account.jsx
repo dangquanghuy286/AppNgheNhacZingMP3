@@ -5,7 +5,7 @@ const Account = () => {
   return (
     <div className="flex flex-row justify-center items-center gap-3">
       {/* Nút nâng cấp tài khoản */}
-      <button className="w-[173px] h-[40px] bg-[#9b4de0] rounded-full text-white font-inter text-[14px] font-bold leading-5 tracking-[0.1px] px-5 flex items-center justify-center">
+      <button className="w-[173px] h-[40px] bg-[#9b4de0] rounded-full text-white font-inter text-[14px] font-bold leading-5 tracking-[0.1px] px-5 flex items-center justify-center cursor-pointer ">
         Nâng cấp tài khoản
       </button>
 
@@ -16,7 +16,7 @@ const Account = () => {
       </div>
 
       {/* Nút Settings */}
-      <span className="w-[40px] h-[40px] cursor-pointer rounded-full text-[#d8d8d8] flex items-center justify-center bg-[#2c2436]">
+      <span className="w-[40px] h-[40px] cursor-pointer rounded-full text-[#d8d8d8] flex items-center justify-center bg-[#2c2436] ">
         <IoSettingsOutline size={18} />
       </span>
 
