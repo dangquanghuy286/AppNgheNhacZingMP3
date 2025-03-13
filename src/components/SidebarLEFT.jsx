@@ -20,15 +20,34 @@ const SidebarLEFT = () => {
       {/* Menu Sidebar */}
       <div className="flex flex-col items-center py-3 px-[21px] text-left leading-5 font-medium font-inter">
         {sidebarMenu.map((item) => (
-          <NavLink key={item.path} end={item.end} to={item.path}>
+          <NavLink
+            key={item.path}
+            end={item.end}
+            to={item.path}
+            className="w-full"
+          >
             {({ isActive }) => (
-              <div className="py-2 px-[25px] flex gap-4 mr-[120px] ml-[57px]">
-                {/* Hiển thị icon. Lưu ý: fontWeight không phải prop hợp lệ cho icon nên đã bỏ */}
-                <item.icon size={14} color="#fff" />
-                {/* Áp dụng style dựa trên trạng thái isActive */}
-                <span className={isActive ? activeStyle : notActiveStyle}>
-                  {item.text}
-                </span>
+              <div className="py-2 px-[25px] flex justify-start items-center gap-2 w-full">
+                <div className="w-[18px] flex items-center justify-center">
+                  <item.icon size={18} color="#fff" />
+                </div>
+
+                <div className="flex items-center">
+                  {/* Text */}
+                  <span
+                    className={`${isActive ? activeStyle : notActiveStyle}`}
+                  >
+                    {item.text}
+                  </span>
+                  {/* Hình ảnh "LIVE" với margin-left: 8px */}
+                  {item.img && (
+                    <img
+                      src={item.img}
+                      alt="Live"
+                      className="w-[34px] h-[16px] object-contain ml-2 mr-[101px]"
+                    />
+                  )}
+                </div>
               </div>
             )}
           </NavLink>

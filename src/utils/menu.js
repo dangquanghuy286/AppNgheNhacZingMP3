@@ -1,26 +1,33 @@
 import icons from "./icons";
-const { MdOutlineLibraryMusic ,MdRadioButtonChecked,MdInsights ,GiMusicalScore} = icons;
+import live from "../assets/Img/liveRadio.svg"
+const { MdOutlineLibraryMusic ,MdRadioButtonChecked,MdInsights ,GiMusicalScore,MdOutlineFeed} = icons;
 
 export const sidebarMenu = [
   {
     path: 'mymusic',
     text: "Thư viện",
-    icon: MdOutlineLibraryMusic // Sửa đổi để không sử dụng JSX
+    icon: MdOutlineLibraryMusic 
   },
   {
     path: '',
     end:true,
     text: "Khám phá",
-    icon: MdRadioButtonChecked // Sửa đổi để không sử dụng JSX
+    icon: MdRadioButtonChecked 
   },
   {
     path: 'zing-chart',
     text: "#zingchart",
-    icon: MdInsights // Sửa đổi để không sử dụng JSX
+    icon: MdInsights 
   },
   {
     path: 'radio',
     text: "Radio",
-    icon: GiMusicalScore // Sửa đổi để không sử dụng JSX
+    icon: GiMusicalScore,
+    img: live
+  },
+  {
+    path: 'feed',
+    text: "Theo dõi",
+    icon: MdOutlineFeed
   },
 ];
