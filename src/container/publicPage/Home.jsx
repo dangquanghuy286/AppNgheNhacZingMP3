@@ -1,5 +1,16 @@
+import { useEffect, useState } from "react";
 import { Header } from "../../components";
+import { getHome } from "../../services/Home";
 function Home() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const fetchApi = async () => {
+      const res = await getHome();
+      console.log(res);
+      setData(res);
+    };
+    fetchApi();
+  }, []);
   return (
     <>
       <div className="overflow-y-auto ">

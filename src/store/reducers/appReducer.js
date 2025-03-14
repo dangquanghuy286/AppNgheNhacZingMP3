@@ -1,8 +1,7 @@
 import actionType from "../actions/actionsTypes";
 
 const initState = {
-    homeData: [],
-    test:"Hello 123"
+    banner:[]
 };
 
 const appReducer = (state = initState, action) => {
