@@ -8,15 +8,17 @@ const activeStyle = "text-[#ffffff] text-[14px] font-bold";
 
 const SidebarLEFT = () => {
   return (
-    <div className="flex flex-col bg-[#231b2e] h-full w-[240px]">
+    <div className="flex flex-col bg-[#231b2e] ">
       {/* Logo */}
-      <div className="flex items-center text-white text-sm w-full h-[70px] px-7">
-        <img
-          className="w-[120px] h-[40px] object-contain ml-4"
-          src={logo}
-          alt="logo"
-        />
-      </div>
+      <NavLink to="/">
+        <div className="flex items-center text-white text-sm w-full h-[70px] px-7">
+          <img
+            className="w-[120px] h-[40px] object-contain ml-4"
+            src={logo}
+            alt="logo"
+          />
+        </div>
+      </NavLink>
 
       {/* Menu Sidebar */}
       <div className="flex flex-col py-3 text-left font-medium">
@@ -31,7 +33,7 @@ const SidebarLEFT = () => {
               <div
                 className={`h-[48px] flex items-center px-[20px] gap-3 w-full ${
                   isActive
-                    ? "bg-[#3b2c4a] border-l-4 border-[#9b4de0]" // Màu nền và viền tím khi active
+                    ? "bg-[#393243] border-l-4 border-[#9b4de0]" // Màu nền và viền tím khi active
                     : ""
                 }`}
               >

@@ -5,7 +5,8 @@ const path = {
     STAR:"*",
     MY_MUSIC:"mymusic",
     ZING_CHART:"zing-chart",
-    RADIO:"radio"
+    RADIO:"radio",
+    FLOWER:"feed"
 
   };
   

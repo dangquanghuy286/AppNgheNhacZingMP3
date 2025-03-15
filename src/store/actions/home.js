@@ -6,7 +6,6 @@ export const getHome = () => async (dispatch) => {
     try {
         // Gọi hàm getdataHome để lấy dữ liệu từ API
         const result = await getdataHome();
-        console.log(result);
         
         // Kiểm tra nếu không có lỗi (err === 0)
         if (result?.err === 0) {
