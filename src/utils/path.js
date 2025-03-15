@@ -1,8 +1,12 @@
 const path = {
     PUBLIC: "/",
-    HOME: "home",
+    HOME: "",
     LOGIN: "login",
-    STAR:"*"
+    STAR:"*",
+    MY_MUSIC:"mymusic",
+    ZING_CHART:"zing-chart",
+    RADIO:"radio"
+
   };
   
   export default path;

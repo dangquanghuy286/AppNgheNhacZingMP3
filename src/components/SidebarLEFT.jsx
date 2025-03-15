@@ -3,22 +3,23 @@ import logo from "../assets/Img/logo.svg";
 import { sidebarMenu } from "../utils/menu";
 import { NavLink } from "react-router-dom";
 
-const notActiveStyle = "text-left text-[#e9e8ea] text-[14px] w-[68px] h-[16px]";
-const activeStyle = "text-left text-[#ffffff] text-[14px] w-[68px] h-[16px]";
+const notActiveStyle = "text-[#e9e8ea] text-[14px]";
+const activeStyle = "text-[#ffffff] text-[14px] font-bold";
 
 const SidebarLEFT = () => {
   return (
-    <div className="flex flex-col bg-[#231b2e]">
+    <div className="flex flex-col bg-[#231b2e] h-full w-[240px]">
       {/* Logo */}
-      <div className="flex items-center text-white text-sm leading-[21px] w-full h-[70px] px-[28px]">
+      <div className="flex items-center text-white text-sm w-full h-[70px] px-7">
         <img
-          className="w-[120px] h-[40px] object-contain ml-[28px]"
+          className="w-[120px] h-[40px] object-contain ml-4"
           src={logo}
           alt="logo"
         />
       </div>
+
       {/* Menu Sidebar */}
-      <div className="flex flex-col items-center py-3 px-[21px] text-left leading-5 font-medium font-inter">
+      <div className="flex flex-col py-3 text-left font-medium">
         {sidebarMenu.map((item) => (
           <NavLink
             key={item.path}
@@ -27,24 +28,30 @@ const SidebarLEFT = () => {
             className="w-full"
           >
             {({ isActive }) => (
-              <div className="py-2 px-[25px] flex justify-start items-center gap-2 w-full">
+              <div
+                className={`h-[48px] flex items-center px-[20px] gap-3 w-full ${
+                  isActive
+                    ? "bg-[#3b2c4a] border-l-4 border-[#9b4de0]" // Màu nền và viền tím khi active
+                    : ""
+                }`}
+              >
+                {/* Icon */}
                 <div className="w-[18px] flex items-center justify-center">
                   <item.icon size={18} color="#fff" />
                 </div>
 
+                {/* Text + Icon LIVE */}
                 <div className="flex items-center">
-                  {/* Text */}
                   <span
                     className={`${isActive ? activeStyle : notActiveStyle}`}
                   >
                     {item.text}
                   </span>
-                  {/* Hình ảnh "LIVE" với margin-left: 8px */}
                   {item.img && (
                     <img
                       src={item.img}
                       alt="Live"
-                      className="w-[34px] h-[16px] object-contain ml-2 mr-[101px]"
+                      className="w-[34px] h-[16px] object-contain ml-2"
                     />
                   )}
                 </div>
