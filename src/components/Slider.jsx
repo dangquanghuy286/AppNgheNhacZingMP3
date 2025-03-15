@@ -1,20 +1,30 @@
 //----THƯ VIỆN ----//
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Carousel } from "antd";
+import * as actions from "../store/actions";
 
 const SliderImg = () => {
   const banner = useSelector((state) => state.app.banner);
+  const dispatch = useDispatch();
 
+  const handleClickBanner = (item) => {
+    console.log(item);
+
+    if (item?.type === 3) {
+      dispatch(actions.getCurSongId(item.encodeId));
+    }
+  };
   return (
-    <div className="w-[1232px] mx-auto leading-0 mt-10 overflow-hidden">
+    <div className="w-[1232px] mx-auto leading-0 mt-10 overflow-hidden ">
       {banner && banner.length > 0 ? (
-        <Carousel autoplay dotPosition="bottom" className="!w-[1232px]">
+        <Carousel autoplay dotPosition="bottom" className="w-full ">
           {banner.map((item, index) => (
             <div key={index} className="w-[1232px] h-[123px]">
               <img
                 src={item.banner}
                 alt={item.title || "No title"}
+                onClick={() => handleClickBanner(item)}
                 className="w-[1232px] h-[123px] object-cover rounded-lg"
               />
             </div>

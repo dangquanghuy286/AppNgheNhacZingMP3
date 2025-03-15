@@ -1,21 +1,33 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { SidebarLEFT, SidebarRight } from "../../components";
+import { Player, SidebarLEFT, SidebarRight } from "../../components";
+
 function Public() {
   return (
-    <>
-      <div className="w-full flex justify-between bg-[#170f23]">
-        <div className="w-[240px] border border-b-[#5d5765] h-[945px] flex-none overflow-y-auto">
+    <div className="w-full min-h-screen flex flex-col bg-[#170f23]">
+      {/* Nội dung chính */}
+      <div className="w-full h-full flex flex-auto">
+        {/* Sidebar trái */}
+        <div className="w-[240px] min-h-screen flex-none">
           <SidebarLEFT />
         </div>
-        <div className="flex-auto border border-b-[#5d5765]">
+
+        {/* Phần chính */}
+        <div className="flex-auto h-screen overflow-hidden">
           <Outlet />
         </div>
-        <div className="w-[330px] border border-b-[#5d5765] h-[945px] flex-none overflow-y-auto">
+
+        {/* Sidebar phải */}
+        <div className="w-[330px] h-screen flex-none overflow-y-auto border border-l-[#5d5765]">
           <SidebarRight />
         </div>
       </div>
-    </>
+
+      {/* Player cố định phía dưới */}
+      <div className="flex-none h-[90px] border-t border-[#5d5765]">
+        <Player />
+      </div>
+    </div>
   );
 }
 

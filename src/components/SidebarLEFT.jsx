@@ -8,7 +8,7 @@ const activeStyle = "text-[#ffffff] text-[14px] font-bold";
 
 const SidebarLEFT = () => {
   return (
-    <div className="flex flex-col bg-[#231b2e] ">
+    <div className="flex  flex-col bg-[#231b2e] h-full ">
       {/* Logo */}
       <NavLink to="/">
         <div className="flex items-center text-white text-sm w-full h-[70px] px-7">
