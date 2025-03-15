@@ -9,8 +9,6 @@ const SliderImg = () => {
   const dispatch = useDispatch();
 
   const handleClickBanner = (item) => {
-    console.log(item);
-
     if (item?.type === 3) {
       dispatch(actions.getCurSongId(item.encodeId));
     }
