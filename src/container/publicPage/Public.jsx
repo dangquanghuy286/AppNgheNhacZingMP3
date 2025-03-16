@@ -11,18 +11,15 @@ function Public() {
         <div className="w-[240px] min-h-screen flex-none">
           <SidebarLEFT />
         </div>
-
         {/* Phần chính */}
         <div className="flex-auto h-screen overflow-hidden">
           <Outlet />
         </div>
 
-        {/* Sidebar phải */}
-        <div className="w-[330px] h-screen flex-none overflow-y-auto border border-l-[#5d5765]">
+        <div className="w-[330px] hidden 2xl:flex h-screen flex-none overflow-y-auto  border border-l-[#5d5765]">
           <SidebarRight />
         </div>
       </div>
-
       {/* Player cố định phía dưới */}
       <div className="flex-none h-[90px] border-t border-[#5d5765]">
         <Player />
