@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getdetailMusic } from "../services/Music";
+import { getDetailSong, getSong } from "../services/Music";
 const Player = () => {
   const { curSongId } = useSelector((state) => state.music);
   const [songDetail, setSongDetail] = useState(null);
@@ -10,7 +10,9 @@ const Player = () => {
     const fetchSongDetail = async () => {
       if (curSongId) {
         try {
-          const result = await getdetailMusic(curSongId);
+          const result = await getDetailSong(curSongId);
+          console.log(result);
+
           setSongDetail(result);
         } catch (error) {
           setError(error);
