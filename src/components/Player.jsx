@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { getDetailSong, getSong } from "../services/Music";
+import { getDetailSong} from "../services/Music";
 const Player = () => {
   const { curSongId } = useSelector((state) => state.music);
   const [songDetail, setSongDetail] = useState(null);
