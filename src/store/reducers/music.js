@@ -1,22 +1,31 @@
-import actionType from "../actions/actionsTypes"; // Nhập các loại hành động từ tệp actionsTypes
+import actionType from "../actions/actionsTypes";
 
-// Khởi tạo state ban đầu với banner là một mảng rỗng
+
 const initState = {
-    curSongId:null
+  curSongId: null,
+  isPlaying: false,
 };
 
-// Định nghĩa reducer appReducer
 const musicReducer = (state = initState, action) => {
-    switch (action.type) {
-        case actionType.SET_CUR_SONG_ID:
-            return {
-                ...state,
-                curSongId:action.songId || null
-            }
-        
-        default:
-            return state; // ✅ Luôn trả về state để tránh lỗi
-    }
+  switch (action.type) {
+    case actionType.SET_CUR_SONG_ID:
+      return {
+        ...state,
+        curSongId: action.songId || null,
+      };
+    case actionType.PLAY:
+      return {
+        ...state,
+        isPlaying: true,
+      };
+    case actionType.PAUSE:
+      return {
+        ...state,
+        isPlaying: false,
+      };
+    default:
+      return state;
+  }
 };
 
 export default musicReducer;

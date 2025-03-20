@@ -12,6 +12,7 @@ const SliderImg = () => {
   const handleClickBanner = (item) => {
     if (item?.type === 3 && item?.encodeId) {
       dispatch(actions.getCurSongId(item.encodeId));
+      dispatch(actions.isPlay(true));
     }
   };
 

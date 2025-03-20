@@ -1,8 +1,19 @@
-import actionType from "./actionsTypes"; // Nhập các loại hành động từ tệp actionsTypes
- // Nhập hàm getdataHome từ dịch vụ Home
+import actionType from "./actionsTypes";
 
-// Định nghĩa hàm getHome, đây là một hành động bất đồng bộ
-export const getCurSongId = (songId) =>({
-    type:actionType.SET_CUR_SONG_ID,
-    songId
-})
+
+// Set the current song ID
+export const setCurSongId = (songId) => ({
+  type: actionType.SET_CUR_SONG_ID,
+  payload: songId, // Using `payload` is more standard in Redux for passing data
+});
+
+// Toggle play state
+export const isPlay = (flag) => ({
+  type: actionType.PLAY,
+  payload: flag, // Updated to `payload` for consistency
+});
+
+// Pause the playback
+export const pause = () => ({
+  type: actionType.PAUSE,
+});

@@ -1,8 +1,10 @@
+
 import actionType from "../actions/actionsTypes"; // Nhập các loại hành động từ tệp actionsTypes
 
 // Khởi tạo state ban đầu với banner là một mảng rỗng
 const initState = {
-    banner: []
+    banner: [],
+   
 };
 
 // Định nghĩa reducer appReducer
@@ -16,6 +18,7 @@ const appReducer = (state = initState, action) => {
                 banner: bannerSection ? bannerSection.items : [] // Đảm bảo banner luôn là một mảng
             };
         }
+       
 
         default:
             return state; // ✅ Luôn trả về state để tránh lỗi
