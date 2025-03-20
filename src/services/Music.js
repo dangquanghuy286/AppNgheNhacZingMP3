@@ -11,8 +11,8 @@ export const getSong = async (sid) => {
 }
 export const getDetailSong = async (sid) => {
     try {
-        const result = await get(`detailplaylist?${sid}`);
-        return result;
+        const result = await get(`infosong?id=${sid}`);
+    return result;
     } catch (error) {
         console.error("Error fetching song details:", error);
         throw error;
