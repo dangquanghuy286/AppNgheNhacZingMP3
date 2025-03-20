@@ -8,28 +8,33 @@ const SliderImg = () => {
   const banner = useSelector((state) => state.app.banner);
   const dispatch = useDispatch();
 
+  // Function to handle banner click
   const handleClickBanner = (item) => {
-    if (item?.type === 3) {
+    if (item?.type === 3 && item?.encodeId) {
       dispatch(actions.getCurSongId(item.encodeId));
     }
   };
+
   return (
-    <div className="w-[1232px] mx-auto leading-0 mt-10 overflow-hidden ">
-      {banner && banner.length > 0 ? (
-        <Carousel autoplay dotPosition="bottom" className="w-full ">
+    <div className="w-[1232px] mx-auto leading-0 mt-10 overflow-hidden">
+      {banner?.length > 0 ? (
+        <Carousel autoplay dotPosition="bottom" className="w-full">
           {banner.map((item, index) => (
             <div key={index} className="w-[1232px] h-[123px]">
               <img
-                src={item.banner}
-                alt={item.title || "No title"}
+                src={item?.banner || "placeholder.jpg"} // Fallback image
+                alt={item?.title || `Banner ${index + 1}`} // Accessibility improvement
                 onClick={() => handleClickBanner(item)}
-                className="w-[1232px] h-[123px] object-cover rounded-lg"
+                className="w-[1232px] h-[123px] object-cover rounded-lg cursor-pointer"
+                loading="lazy" // Performance improvement
               />
             </div>
           ))}
         </Carousel>
       ) : (
-        <p className="text-center">No banners available</p>
+        <p className="text-center text-gray-500">
+          No banners available. Please check back later!
+        </p>
       )}
     </div>
   );
