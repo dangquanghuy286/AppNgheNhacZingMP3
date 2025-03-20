@@ -11,10 +11,11 @@ export const getSong = async (sid) => {
 }
 export const getDetailSong = async (sid) => {
     try {
-        const result = await get(`infosong?id=${sid}`);
-    return result;
+        const result = await get(`infosong?id=${encodeURIComponent(sid)}`);
+        return result;
     } catch (error) {
-        console.error("Error fetching song details:", error);
-        throw error;
+        console.error(`Failed to fetch song details for ID: ${sid}. Error:`, error);
+        throw new Error("Unable to fetch song details. Please try again later.");
     }
-}
+};
+
