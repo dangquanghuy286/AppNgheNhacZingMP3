@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getDetailSong } from "../services/Music";
-
 import icons from "../utils/icons";
-import { isPlay, pause } from "../store/actions";
+import { play, pause } from "../store/actions";
 
 const {
   FaRegHeart,
@@ -17,87 +16,42 @@ const {
 } = icons;
 
 const Player = () => {
-  const audioEl = new Audio();
-  const { curSongId } = useSelector((state) => state.music);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const dispatch = useDispatch();
+  const { curSongId, isPlaying } = useSelector((state) => state.music);
   const [songDetail, setSongDetail] = useState(null);
-  const [source, setSource] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [volume, setVolume] = useState(1); // New state variable for volume
+  // const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.5);
+  console.log(isPlaying);
 
   useEffect(() => {
-    if (!curSongId) {
-      setSongDetail(null);
-      setSource(null);
-      return;
-    }
-
     const fetchSongDetail = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const result = await getDetailSong(curSongId);
-
-        console.log("Fetched song details:", result); // Debugging
-
-        if (!result || typeof result !== "object") {
-          throw new Error("Invalid response format");
+      if (curSongId) {
+        try {
+          setLoading(true);
+          const result = await getDetailSong(curSongId);
+          setSongDetail(result);
+          console.log(result);
+        } catch (err) {
+          setError(err);
+        } finally {
+          setLoading(false);
         }
-
-        // Nếu kết quả là object, dùng destructuring theo object thay vì array
-        const res1 = result?.res1 || result[0]; // Hỗ trợ cả object và mảng
-        console.log(res1);
-
-        const res2 = result?.res2 || result[1];
-
-        if (res1?.err === 0) {
-          setSongDetail(res1.data);
-        } else {
-          setSongDetail(null);
-        }
-
-        if (res2?.err === 0 && res2.data?.["128"]) {
-          setSource(res2.data["128"]);
-        } else {
-          setSource(null);
-        }
-      } catch (error) {
-        console.error("Error fetching song details:", error);
-        setError(error);
-      } finally {
-        setLoading(false);
       }
     };
-    console.log(songDetail);
 
-    fetchSongDetail().catch((error) => {
-      console.error("Error in fetchSongDetail:", error);
-      setError(error);
-    });
+    fetchSongDetail();
   }, [curSongId]);
-
-  useEffect(() => {
-    if (source) {
-      audioEl.src = source;
-      audioEl.volume = volume; // Set initial volume
-      if (isPlaying) {
-        audioEl.play();
-      } else {
-        audioEl.pause();
-      }
-    }
-  }, [source, isPlaying, volume]); // Add volume to dependency array
 
   const handleTogglePlay = () => {
     setIsPlaying((prev) => !prev);
+    // dispatch(isPlaying ? pause() : isPlay());
   };
 
   const handleVolumeChange = (e) => {
     setVolume(e.target.value);
-    audioEl.volume = e.target.value;
   };
-
   if (loading) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-white">Error: {error.message}</div>;
   if (!songDetail) return <div className="text-white">No song selected</div>;
@@ -107,16 +61,16 @@ const Player = () => {
       {/* Left: Song Details */}
       <div className="w-[30%] flex items-center gap-3">
         <img
-          src={songDetail.thumbnail}
+          src={songDetail?.thumbnail}
           alt="thumbnail"
           className="w-16 h-16 object-cover rounded-md"
         />
         <div className="flex flex-col gap-1">
           <span className="font-semibold text-sm truncate w-[125px]">
-            {songDetail.title}
+            {songDetail?.title}
           </span>
           <span className="text-xs text-[#76727b]">
-            {songDetail.artistsNames}
+            {songDetail?.artistsNames}
           </span>
         </div>
         <div className="flex gap-4 pl-2">

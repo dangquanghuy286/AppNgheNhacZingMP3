@@ -15,10 +15,8 @@ export const getDetailSong = async (sid) => {
         const result = await get(`infosong?${sid}`);
         console.log("getDetailSong raw response:", result);
         if (result.err === 0 && result.data) {
-            console.log("Fetched song details:", result.data);
             return result.data;
         } else {
-            console.warn("Unexpected response structure:", result);
             return null;
         }
     } catch (error) {

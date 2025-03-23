@@ -1,6 +1,5 @@
 import actionType from "../actions/actionsTypes";
 
-
 const initState = {
   curSongId: null,
   isPlaying: false,
