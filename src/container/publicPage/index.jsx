@@ -5,3 +5,4 @@ export { default as Mymusic } from "./Mymusic";
 export { default as Flower } from "./Flower";
 export { default as Radio } from "./Radio";
 export { default as ZingChart } from "./ZingChart";
+export { default as Album } from "./Album";

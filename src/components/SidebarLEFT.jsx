@@ -2,16 +2,22 @@ import React from "react";
 import logo from "../assets/Img/logo.svg";
 import { sidebarMenu } from "../utils/menu";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import path from "../utils/path";
 
 const notActiveStyle = "text-[#e9e8ea] text-[14px]";
 const activeStyle = "text-[#ffffff] text-[14px] font-bold";
 
 const SidebarLEFT = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex  flex-col bg-[#231b2e] h-full ">
       {/* Logo */}
       <NavLink to="/">
-        <div className="flex items-center text-white text-sm w-full h-[70px] px-7">
+        <div
+          onClick={() => navigate(path.HOME)}
+          className="flex items-center text-white text-sm w-full h-[70px] px-7"
+        >
           <img
             className="w-[120px] h-[40px] object-contain ml-4"
             src={logo}

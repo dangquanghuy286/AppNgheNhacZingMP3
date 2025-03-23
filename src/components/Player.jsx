@@ -44,9 +44,10 @@ const Player = () => {
     fetchSongDetail();
   }, [curSongId]);
 
+  const dispatch = useDispatch();
+
   const handleTogglePlay = () => {
-    setIsPlaying((prev) => !prev);
-    // dispatch(isPlaying ? pause() : isPlay());
+    dispatch(isPlaying ? pause() : play());
   };
 
   const handleVolumeChange = (e) => {

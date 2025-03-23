@@ -3,21 +3,25 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Carousel } from "antd";
 import * as actions from "../store/actions";
-
+import { useNavigate } from "react-router-dom";
 const SliderImg = () => {
   const banner = useSelector((state) => state.app.banner);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Function to handle banner click
   const handleClickBanner = (item) => {
-    if (item?.type === 3 && item?.encodeId) {
+    if (item?.type === 1 && item?.encodeId) {
       dispatch(actions.getCurSongId(item.encodeId));
       dispatch(actions.play(true));
+    } else if (item?.type === 4) {
+      const albumPath = item?.link?.split(".")[0];
+      navigate(albumPath);
     }
   };
 
   return (
-    <div className="w-[1232px] mx-auto leading-0 mt-10 overflow-hidden">
+    <div className="w-[1232px] mx-auto leading-0  overflow-hidden">
       {banner?.length > 0 ? (
         <Carousel autoplay dotPosition="bottom" className="w-full">
           {banner.map((item, index) => (

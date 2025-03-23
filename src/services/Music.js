@@ -24,3 +24,17 @@ export const getDetailSong = async (sid) => {
         throw error;
     }
 };
+export const getDetailPlayList = async (sid) => {
+    try {
+        const result = await get(`detailplaylist?${sid}`);
+        console.log("getDetailSong raw response:", result);
+        if (result.err === 0 && result.data) {
+            return result.data;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.error("Error fetching music details:", error);
+        throw error;
+    }
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Player, SidebarLEFT, SidebarRight } from "../../components";
+import { Header, Player, SidebarLEFT, SidebarRight } from "../../components";
 
 function Public() {
   return (
@@ -13,6 +13,9 @@ function Public() {
         </div>
         {/* Phần chính */}
         <div className="flex-auto h-screen overflow-hidden">
+          <div className="h-[70px] bg-[#170f23] px-[59px] flex items-center text-[#fff] mb-5">
+            <Header />
+          </div>
           <Outlet />
         </div>
 
