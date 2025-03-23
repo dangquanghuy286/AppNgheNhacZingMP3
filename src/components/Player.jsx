@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { getDetailSong } from "../services/Music";
 
 import icons from "../utils/icons";
@@ -17,17 +17,19 @@ const {
 } = icons;
 
 const Player = () => {
-  const { curSongId, isPlaying } = useSelector((state) => state.music);
-  const dispatch = useDispatch();
-  const audioRef = useRef(new Audio());
+  const audioEl = new Audio();
+  const { curSongId } = useSelector((state) => state.music);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [songDetail, setSongDetail] = useState(null);
+  const [source, setSource] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [userInteracted, setUserInteracted] = useState(false);
+  const [volume, setVolume] = useState(1); // New state variable for volume
 
   useEffect(() => {
     if (!curSongId) {
       setSongDetail(null);
+      setSource(null);
       return;
     }
 
@@ -36,40 +38,64 @@ const Player = () => {
       setError(null);
       try {
         const result = await getDetailSong(curSongId);
-        if (result.err === 0) {
-          setSongDetail(result.data);
-          audioRef.current.src = result.data.audioUrl || ""; // Fallback if audioUrl is missing
-          audioRef.current.load();
+
+        console.log("Fetched song details:", result); // Debugging
+
+        if (!result || typeof result !== "object") {
+          throw new Error("Invalid response format");
+        }
+
+        // Nếu kết quả là object, dùng destructuring theo object thay vì array
+        const res1 = result?.res1 || result[0]; // Hỗ trợ cả object và mảng
+        console.log(res1);
+
+        const res2 = result?.res2 || result[1];
+
+        if (res1?.err === 0) {
+          setSongDetail(res1.data);
         } else {
-          setError(new Error(result.msg));
+          setSongDetail(null);
+        }
+
+        if (res2?.err === 0 && res2.data?.["128"]) {
+          setSource(res2.data["128"]);
+        } else {
+          setSource(null);
         }
       } catch (error) {
+        console.error("Error fetching song details:", error);
         setError(error);
       } finally {
         setLoading(false);
       }
     };
+    console.log(songDetail);
 
-    fetchSongDetail();
+    fetchSongDetail().catch((error) => {
+      console.error("Error in fetchSongDetail:", error);
+      setError(error);
+    });
   }, [curSongId]);
 
   useEffect(() => {
-    if (isPlaying && userInteracted) {
-      audioRef.current.play().catch((error) => {
-        console.error("Error playing audio:", error);
-      });
-    } else {
-      audioRef.current.pause();
+    if (source) {
+      audioEl.src = source;
+      audioEl.volume = volume; // Set initial volume
+      if (isPlaying) {
+        audioEl.play();
+      } else {
+        audioEl.pause();
+      }
     }
-  }, [isPlaying, userInteracted]);
+  }, [source, isPlaying, volume]); // Add volume to dependency array
 
   const handleTogglePlay = () => {
-    setUserInteracted(true);
-    if (isPlaying) {
-      dispatch(pause());
-    } else {
-      dispatch(isPlay());
-    }
+    setIsPlaying((prev) => !prev);
+  };
+
+  const handleVolumeChange = (e) => {
+    setVolume(e.target.value);
+    audioEl.volume = e.target.value;
   };
 
   if (loading) return <div className="text-white">Loading...</div>;
@@ -111,7 +137,7 @@ const Player = () => {
             className="cursor-pointer w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#757575]"
           />
           <span
-            className="cursor-pointer w-14 h-14 flex items-center justify-center rounded-full"
+            className="cursor-pointer w-14 h-14 flex items-center justify-center rounded-full hover:text-[#757575]"
             onClick={handleTogglePlay}
           >
             {isPlaying ? (
@@ -134,7 +160,15 @@ const Player = () => {
 
       {/* Right: Volume */}
       <div className="w-[30%] flex items-center justify-center">
-        <div>Volume Controls</div>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={handleVolumeChange}
+          className="w-24"
+        />
       </div>
     </div>
   );

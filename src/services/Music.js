@@ -9,13 +9,20 @@ export const getSong = async (sid) => {
         throw error;
     }
 }
+
 export const getDetailSong = async (sid) => {
     try {
-        const result = await get(`infosong?id=${encodeURIComponent(sid)}`);
-        return result;
+        const result = await get(`infosong?${sid}`);
+        console.log("getDetailSong raw response:", result);
+        if (result.err === 0 && result.data) {
+            console.log("Fetched song details:", result.data);
+            return result.data;
+        } else {
+            console.warn("Unexpected response structure:", result);
+            return null;
+        }
     } catch (error) {
-        console.error(`Failed to fetch song details for ID: ${sid}. Error:`, error);
-        throw new Error("Unable to fetch song details. Please try again later.");
+        console.error("Error fetching music details:", error);
+        throw error;
     }
 };
-
